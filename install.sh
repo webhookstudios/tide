@@ -1,5 +1,5 @@
 #!/bin/sh
-# Installs Swell for the current user, without root: the extension, plus an
+# Installs Tide for the current user, without root: the extension, plus an
 # apps-menu entry that opens its settings.
 set -e
 
@@ -32,8 +32,8 @@ sed -e "s|@EXEC@|gjs -m \"$DATA/swell/launcher.js\"|" -e "s|@ICON@|$ICON|" \
 update-desktop-database "$DATA/applications" 2>/dev/null || true
 
 cat <<EOF
-Swell is installed in:
+Tide is installed in:
   $DEST
 
-Log out and back in, then open Swell from the apps menu.
+Log out and back in, then open Tide from the apps menu.
 EOF

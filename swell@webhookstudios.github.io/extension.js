@@ -284,7 +284,7 @@ class AppRow extends St.BoxLayout {
 const SwellButton = GObject.registerClass(
 class SwellButton extends PanelMenu.Button {
     _init(ext) {
-        super._init(0.5, 'Swell', false);
+        super._init(0.5, 'Tide', false);
         this._ext = ext;
         this._settings = ext.getSettings();
         this._mixer = new Mixer(this._settings);
@@ -394,7 +394,7 @@ class SwellButton extends PanelMenu.Button {
 
         this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
         this.menu.addSettingsAction(_('Sound Settings'), 'gnome-sound-panel.desktop');
-        this.menu.addAction(_('Swell Settings'), () => this._ext.openPreferences());
+        this.menu.addAction(_('Tide Settings'), () => this._ext.openPreferences());
     }
 
     // ---- main output ---------------------------------------------------------

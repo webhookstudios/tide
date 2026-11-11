@@ -4,6 +4,7 @@ import GLib from 'gi://GLib';
 import Gtk from 'gi://Gtk';
 
 import {ExtensionPreferences} from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
+import {applyToWindow as applySedge} from './sedge/sedge.js';
 
 // Row titles are read as markup, so names with & or < must be escaped.
 const esc = text => GLib.markup_escape_text(text, -1);
@@ -153,6 +154,8 @@ function appsPage(settings) {
 
 export default class SwellPreferences extends ExtensionPreferences {
     fillPreferencesWindow(window) {
+        applySedge(window, `${this.path}/sedge`);
+        window.set_title('Tide');
         const settings = this.getSettings();
         window.set_default_size(620, 680);
         window.add(generalPage(settings));

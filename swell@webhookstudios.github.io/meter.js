@@ -27,7 +27,7 @@ const stdout = new Gio.DataOutputStream({
 function props(key) {
     const isDevice = key.startsWith('d:');
     const fields = [
-        'application.name="Swell level meter"',
+        'application.name="Tide level meter"',
         'application.id=org.PulseAudio.pavucontrol',
         'media.type=Audio',
         'media.category=Monitor',
@@ -56,7 +56,7 @@ function start(key) {
     }
     const src = pipeline.get_by_name('src');
     src.target_object = target;
-    src.client_name = 'Swell level meter';
+    src.client_name = 'Tide level meter';
     src.stream_properties = props(key);
 
     const bus = pipeline.get_bus();

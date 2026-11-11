@@ -1,8 +1,10 @@
-# Swell
+# Tide
 
-A per-app volume mixer for GNOME. Every app playing sound gets its own volume slider, mute button, live level meter and output device, right from the top bar. Swell remembers each app's device and volume for next time.
+*Formerly Swell. Part of the Sedge family of webhookstudios apps.*
 
-![The Swell mixer: the main output at the top, then Rhythmbox and Video Player with their own sliders and level meters](docs/screenshots/mixer.png)
+A per-app volume mixer for GNOME. Every app playing sound gets its own volume slider, mute button, live level meter and output device, right from the top bar. Tide remembers each app's device and volume for next time.
+
+![The Tide mixer: the main output at the top, then Rhythmbox and Video Player with their own sliders and level meters](docs/screenshots/mixer.png)
 
 | Send one app to another device | Paused and remembered apps |
 |---|---|
@@ -10,28 +12,28 @@ A per-app volume mixer for GNOME. Every app playing sound gets its own volume sl
 
 | Settings | Remembered apps |
 |---|---|
-| ![The General page of the settings window](docs/screenshots/settings.png) | ![The Apps page, listing Rhythmbox and Video Player with what Swell remembers for each](docs/screenshots/settings-apps.png) |
+| ![The General page of the settings window](docs/screenshots/settings.png) | ![The Apps page, listing Rhythmbox and Video Player with what Tide remembers for each](docs/screenshots/settings-apps.png) |
 
 ## Requirements
 
 - GNOME Shell 50 (Ubuntu 26.04)
 - A Wayland session, which is the Ubuntu default
 - PipeWire, the Ubuntu default sound server, with `pipewire-bin` (installed by default)
-- For the level meters: `gstreamer1.0-pipewire` (installed by default). Without it Swell works, just without meters.
+- For the level meters: `gstreamer1.0-pipewire` (installed by default). Without it Tide works, just without meters.
 
-Swell has only been tested on Ubuntu 26.04 with GNOME Shell 50.1 on Wayland.
+Tide has only been tested on Ubuntu 26.04 with GNOME Shell 50.1 on Wayland.
 
 ## Install
 
 ### With the deb package (recommended)
 
-Download `swell_1.0.0_all.deb` from the [latest release](https://github.com/webhookstudios/swell/releases/latest), then install it:
+Download `swell_1.1.0_all.deb` from the [latest release](https://github.com/webhookstudios/swell/releases/latest), then install it:
 
 ```bash
-sudo apt install ./swell_1.0.0_all.deb
+sudo apt install ./swell_1.1.0_all.deb
 ```
 
-Log out and back in, then open **Swell** from the apps menu. The first time, that turns Swell on and opens its settings.
+Log out and back in, then open **Tide** from the apps menu. The first time, that turns Tide on and opens its settings.
 
 To remove it:
 
@@ -78,7 +80,7 @@ When an app you changed starts playing again, it goes back to the device and vol
 
 ## Settings
 
-Open **Swell** from the apps menu, choose **Swell Settings** at the bottom of the mixer, or run:
+Open **Tide** from the apps menu, choose **Tide Settings** at the bottom of the mixer, or run:
 
 ```bash
 gnome-extensions prefs swell@webhookstudios.github.io
@@ -87,15 +89,15 @@ gnome-extensions prefs swell@webhookstudios.github.io
 | Page | What you can change |
 |---|---|
 | General | Show inactive apps, level meters, percentages, the loudest volume (up to 150%), scrolling on the icon and its step, which side of the system menu the icon sits on |
-| Apps | Turn remembering on or off, see what Swell remembers for each app, forget one app or all of them |
+| Apps | Turn remembering on or off, see what Tide remembers for each app, forget one app or all of them |
 
 Changes apply to the open mixer straight away.
 
 ## How it works
 
-Swell uses the same connection to the sound server as GNOME's own volume menu for the app list, volume, mute and the main output. To know which device each app plays to and to move it, it reads the PipeWire graph with `pw-dump` and sets the app's target with `pw-metadata`, which WirePlumber follows. The level meters run in a separate small process only while the mixer is open, so they cost nothing the rest of the time and never show the microphone-in-use icon.
+Tide uses the same connection to the sound server as GNOME's own volume menu for the app list, volume, mute and the main output. To know which device each app plays to and to move it, it reads the PipeWire graph with `pw-dump` and sets the app's target with `pw-metadata`, which WirePlumber follows. The level meters run in a separate small process only while the mixer is open, so they cost nothing the rest of the time and never show the microphone-in-use icon.
 
-WirePlumber also remembers app volumes on its own. Swell's memory sits on top of that and adds the device.
+WirePlumber also remembers app volumes on its own. Tide's memory sits on top of that and adds the device.
 
 ## Development
 

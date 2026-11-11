@@ -24,6 +24,8 @@ install -d "$EXT" "$STAGE/DEBIAN" "$STAGE/usr/bin" \
 
 install -m 644 "$ROOT/$UUID"/*.js "$ROOT/$UUID/metadata.json" \
     "$ROOT/$UUID/stylesheet.css" "$EXT/"
+cp -r "$ROOT/$UUID/sedge" "$EXT/"
+find "$EXT/sedge" -type f -exec chmod 644 {} +
 install -d "$EXT/icons"
 install -m 644 "$ROOT/$UUID/icons"/*.svg "$EXT/icons/"
 # With no schemas folder of its own, the extension reads its schema from
@@ -37,7 +39,7 @@ chmod 644 "$STAGE/usr/share/applications/$APP_ID.desktop"
 
 cat > "$STAGE/usr/share/doc/swell/copyright" <<EOF
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: Swell
+Upstream-Name: Tide (formerly Swell)
 Source: https://github.com/webhookstudios/swell
 
 Files: *
@@ -45,6 +47,11 @@ Copyright: $(date +%Y) webhookstudios
 License: GPL-2+
  On Debian systems, the full text of the GNU General Public License
  version 2 can be found in /usr/share/common-licenses/GPL-2.
+
+Files: usr/share/gnome-shell/extensions/*/sedge/fonts/*
+Copyright: 2023 The Young Serif Project Authors; 2015 The Public Sans Project Authors
+License: OFL-1.1
+ The full license texts are in the extension's sedge/fonts/ folder.
 EOF
 chmod 644 "$STAGE/usr/share/doc/swell/copyright"
 
@@ -60,12 +67,12 @@ Section: gnome
 Priority: optional
 Homepage: https://github.com/webhookstudios/swell
 Description: Per-app volume mixer for the GNOME top bar
- Swell is a GNOME Shell extension that adds a volume mixer to the top bar.
+ Tide (formerly Swell) is a GNOME Shell extension that adds a volume mixer to the top bar.
  It lists every app playing sound with its own volume slider, mute button,
  level meter and output device, remembers each app's device and volume,
  and lets you pick the main output device.
  .
- After installing, log out and back in, then open Swell from the apps menu.
+ After installing, log out and back in, then open Tide from the apps menu.
 EOF
 
 # Folders are created with the builder's umask; packages want 755.
