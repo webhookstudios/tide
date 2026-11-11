@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+  <schema id="org.gnome.shell.extensions.swell"
+          path="/org/gnome/shell/extensions/swell/">
+
+    <!-- What the mixer shows -->
+    <key name="show-inactive" type="b">
+      <default>false</default>
+      <summary>Also list apps that are paused or have stopped playing</summary>
+      <description>Paused streams, and remembered apps that are not playing right now. Their volume and device can still be set.</description>
+    </key>
+    <key name="show-meters" type="b">
+      <default>true</default>
+      <summary>Show a live level meter under each slider</summary>
+    </key>
+    <key name="show-percent" type="b">
+      <default>true</default>
+      <summary>Show the volume in percent next to each slider</summary>
+    </key>
+
+    <!-- Top bar icon -->
+    <key name="scroll-master" type="b">
+      <default>true</default>
+      <summary>Scrolling on the top bar icon changes the main volume</summary>
+    </key>
+    <key name="scroll-step" type="i">
+      <default>5</default>
+      <range min="1" max="20"/>
+      <summary>Volume step for one scroll, in percent</summary>
+    </key>
+    <key name="panel-position" type="s">
+      <choices>
+        <choice value="left"/>
+        <choice value="right"/>
+      </choices>
+      <default>'left'</default>
+      <summary>Place the icon to the left or the right of the system menu</summary>
+    </key>
+    <key name="max-volume" type="i">
+      <default>100</default>
+      <range min="100" max="150"/>
+      <summary>Highest volume the app sliders go to, in percent</summary>
+    </key>
+
+    <!-- Memory -->
+    <key name="remember-apps" type="b">
+      <default>true</default>
+      <summary>Remember each app's output device and volume</summary>
+      <description>When an app starts playing again, it goes back to the device and volume you last gave it.</description>
+    </key>
+    <key name="app-memory" type="s">
+      <default>'{}'</default>
+      <summary>Remembered apps</summary>
+      <description>JSON object: app key to {name, icon, sink, volume, muted, seen}.</description>
+    </key>
+  </schema>
+</schemalist>

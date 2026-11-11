@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=Swell
+GenericName=Volume Mixer Settings
+Comment=Change how the Swell volume mixer looks and what it remembers
+Exec=@EXEC@
+Icon=@ICON@
+Terminal=false
+StartupNotify=false
+Categories=Settings;GNOME;GTK;AudioVideo;Audio;
+Keywords=volume;mixer;sound;audio;app;device;output;extension;
