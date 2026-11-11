@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Tide setup
+Comment=Turns Tide on in place of Swell, its old name
+Exec=/usr/lib/tide/tide-take-over
+OnlyShowIn=GNOME;
+NoDisplay=true
+X-GNOME-Autostart-Phase=Applications

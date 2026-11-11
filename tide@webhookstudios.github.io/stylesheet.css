@@ -1,0 +1,44 @@
+/* Tide follows the shell theme; only layout and the meter colors are set here. */
+.tide-menu { min-width: 380px; }
+.tide-item { padding: 0; }
+.tide-item:hover, .tide-item:focus { background-color: transparent; }
+.tide-root { padding: 6px 8px 4px 8px; spacing: 4px; width: 380px; }
+
+.tide-master-device-button { padding: 6px 8px; border-radius: 10px; }
+.tide-master-device-button:hover,
+.tide-master-device-button:focus,
+.tide-app-device:hover,
+.tide-app-device:focus,
+.tide-device-row:hover,
+.tide-device-row:focus,
+.tide-app-mute:hover,
+.tide-app-mute:focus { background-color: rgba(127, 127, 127, 0.18); }
+.tide-master-device-icon { icon-size: 16px; margin-right: 8px; }
+.tide-master-device { font-weight: bold; }
+
+.tide-heading { font-size: 0.85em; font-weight: bold; opacity: 0.7; padding: 10px 8px 2px 8px; }
+.tide-scroll { max-height: 420px; }
+.tide-list { spacing: 2px; }
+.tide-empty { padding: 18px 8px 14px 8px; opacity: 0.6; }
+
+.tide-app { padding: 2px 0; }
+.tide-app-line { spacing: 6px; }
+.tide-master-line { padding-bottom: 4px; }
+.tide-app-mute { padding: 6px; border-radius: 10px; }
+.tide-mute-badge { icon-size: 14px; color: #e01b24; background-color: rgba(0, 0, 0, 0.6); border-radius: 99px; padding: 1px; }
+.tide-app-middle { spacing: 0; }
+.tide-app-name { font-weight: bold; padding: 0 8px; }
+.tide-app-device { padding: 1px 6px; border-radius: 8px; font-size: 0.85em; max-width: 170px; }
+.tide-app-device-box { spacing: 2px; }
+.tide-app-device-box StLabel { opacity: 0.75; }
+.tide-app-device-arrow { icon-size: 12px; opacity: 0.7; margin-left: 4px; }
+.tide-percent { min-width: 52px; text-align: right; font-feature-settings: "tnum"; font-size: 0.9em; padding-right: 4px; }
+
+.tide-meter { height: 3px; margin: 0 12px 4px 12px; border-radius: 2px; background-color: rgba(127, 127, 127, 0.22); }
+.tide-meter-fill { border-radius: 2px; background-color: -st-accent-color; }
+
+.tide-device-list { padding: 2px 0 6px 40px; spacing: 1px; }
+.tide-device-row { padding: 6px 10px; border-radius: 8px; text-align: left; }
+.tide-device-row-box { spacing: 10px; }
+.tide-device-icon { icon-size: 16px; }
+.tide-device-check { icon-size: 16px; }

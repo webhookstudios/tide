@@ -1,9 +1,9 @@
 {
-  "uuid": "swell@webhookstudios.github.io",
+  "uuid": "tide@webhookstudios.github.io",
   "name": "Tide",
   "description": "A per-app volume mixer in the top bar: a slider, mute button, level meter and output device for every app playing sound.",
   "version-name": "1.1.0",
   "shell-version": ["50"],
-  "settings-schema": "org.gnome.shell.extensions.swell",
-  "url": "https://github.com/webhookstudios/swell"
+  "settings-schema": "org.gnome.shell.extensions.tide",
+  "url": "https://github.com/webhookstudios/tide"
 }

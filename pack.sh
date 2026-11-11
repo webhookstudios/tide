@@ -2,7 +2,7 @@
 # Builds the release zip in dist/, ready for `gnome-extensions install`.
 set -e
 
-UUID=swell@webhookstudios.github.io
+UUID=tide@webhookstudios.github.io
 ROOT="$(cd "$(dirname "$0")" && pwd)"
 
 mkdir -p "$ROOT/dist"

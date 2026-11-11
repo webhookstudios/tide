@@ -1,6 +1,6 @@
 // The mixer model.
 //
-// Swell uses two views of the sound system, because neither has everything:
+// Tide uses two views of the sound system, because neither has everything:
 //
 // - GNOME's Gvc mixer control, the same connection the built-in volume menu
 //   uses. It lists the playing streams and output devices and sets volume,
@@ -45,7 +45,7 @@ export class PwGraph extends EventEmitter {
             this._proc = Gio.Subprocess.new(['pw-dump', '--monitor', '--no-colors'],
                 Gio.SubprocessFlags.STDOUT_PIPE | Gio.SubprocessFlags.STDERR_SILENCE);
         } catch (e) {
-            console.warn(`Swell: cannot run pw-dump: ${e.message}`);
+            console.warn(`Tide: cannot run pw-dump: ${e.message}`);
             this.available = false;
             return;
         }
@@ -115,7 +115,7 @@ export class PwGraph extends EventEmitter {
                     this._apply(obj);
                 this._restarts = 0;
             } catch (e) {
-                console.warn(`Swell: could not read pw-dump output: ${e.message}`);
+                console.warn(`Tide: could not read pw-dump output: ${e.message}`);
             }
         }
         this._changed();
@@ -202,7 +202,7 @@ export class PwGraph extends EventEmitter {
                 Gio.SubprocessFlags.STDOUT_SILENCE | Gio.SubprocessFlags.STDERR_SILENCE);
             proc.wait_async(null, null);
         } catch (e) {
-            console.warn(`Swell: cannot run pw-metadata: ${e.message}`);
+            console.warn(`Tide: cannot run pw-metadata: ${e.message}`);
         }
     }
 
@@ -416,7 +416,7 @@ export class Mixer extends EventEmitter {
     }
 
     // Gives a newly started stream the device and volume remembered for its
-    // app. Streams that were already playing when Swell started are left as
+    // app. Streams that were already playing when Tide started are left as
     // they are.
     _applyMemory(apps, liveIds) {
         const remember = this._settings.get_boolean('remember-apps');
@@ -460,7 +460,7 @@ export class Mixer extends EventEmitter {
     }
 
     _sinkNameFromTarget(target) {
-        // pavucontrol and pactl write the device's serial; Swell writes its name.
+        // pavucontrol and pactl write the device's serial; Tide writes its name.
         if (/^\d+$/.test(target)) {
             const sink = this._sinkByIndex(Number(target));
             return sink?.name ?? null;

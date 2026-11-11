@@ -1,5 +1,5 @@
 #!/usr/bin/gjs -m
-// Swell's level meter helper. It runs as its own process while the mixer is
+// Tide's level meter helper. It runs as its own process while the mixer is
 // open, so GStreamer never runs inside GNOME Shell.
 //
 // It reads lines from stdin, each one the full list of things to measure:
@@ -51,7 +51,7 @@ function start(key) {
             'audio/x-raw,format=F32LE,channels=1 ! ' +
             'level name=level interval=50000000 post-messages=true ! fakesink sync=false');
     } catch (e) {
-        printerr(`swell-meter: ${e.message}`);
+        printerr(`tide-meter: ${e.message}`);
         return;
     }
     const src = pipeline.get_by_name('src');
@@ -116,7 +116,7 @@ function readLine() {
             line = null;
         }
         if (line === null) {
-            // The shell closed our input: the mixer closed, or Swell was turned off.
+            // The shell closed our input: the mixer closed, or Tide was turned off.
             for (const key of [...meters.keys()])
                 stop(key);
             loop.quit();

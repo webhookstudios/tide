@@ -152,7 +152,7 @@ function appsPage(settings) {
     return page;
 }
 
-export default class SwellPreferences extends ExtensionPreferences {
+export default class TidePreferences extends ExtensionPreferences {
     fillPreferencesWindow(window) {
         applySedge(window, `${this.path}/sedge`);
         window.set_title('Tide');

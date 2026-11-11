@@ -27,10 +27,10 @@ Tide has only been tested on Ubuntu 26.04 with GNOME Shell 50.1 on Wayland.
 
 ### With the deb package (recommended)
 
-Download `swell_1.1.0_all.deb` from the [latest release](https://github.com/webhookstudios/swell/releases/latest), then install it:
+Download `tide_1.1.0_all.deb` from the [latest release](https://github.com/webhookstudios/tide/releases/latest), then install it:
 
 ```bash
-sudo apt install ./swell_1.1.0_all.deb
+sudo apt install ./tide_1.1.0_all.deb
 ```
 
 Log out and back in, then open **Tide** from the apps menu. The first time, that turns Tide on and opens its settings.
@@ -38,33 +38,33 @@ Log out and back in, then open **Tide** from the apps menu. The first time, that
 To remove it:
 
 ```bash
-sudo apt remove swell
+sudo apt remove tide
 ```
 
 ### As an extension zip, without root
 
 ```bash
-wget https://github.com/webhookstudios/swell/releases/latest/download/swell@webhookstudios.github.io.shell-extension.zip
+wget https://github.com/webhookstudios/tide/releases/latest/download/tide@webhookstudios.github.io.shell-extension.zip
 ```
 
 ```bash
-gnome-extensions install --force swell@webhookstudios.github.io.shell-extension.zip
+gnome-extensions install --force tide@webhookstudios.github.io.shell-extension.zip
 ```
 
 Log out and back in, then:
 
 ```bash
-gnome-extensions enable swell@webhookstudios.github.io
+gnome-extensions enable tide@webhookstudios.github.io
 ```
 
 ### From source
 
 ```bash
-git clone https://github.com/webhookstudios/swell.git
+git clone https://github.com/webhookstudios/tide.git
 ```
 
 ```bash
-./swell/install.sh
+./tide/install.sh
 ```
 
 ## Using it
@@ -83,7 +83,7 @@ When an app you changed starts playing again, it goes back to the device and vol
 Open **Tide** from the apps menu, choose **Tide Settings** at the bottom of the mixer, or run:
 
 ```bash
-gnome-extensions prefs swell@webhookstudios.github.io
+gnome-extensions prefs tide@webhookstudios.github.io
 ```
 
 | Page | What you can change |
@@ -102,11 +102,11 @@ WirePlumber also remembers app volumes on its own. Tide's memory sits on top of 
 ## Development
 
 ```bash
-ln -s "$PWD/swell@webhookstudios.github.io" ~/.local/share/gnome-shell/extensions/
+ln -s "$PWD/tide@webhookstudios.github.io" ~/.local/share/gnome-shell/extensions/
 ```
 
 ```bash
-glib-compile-schemas swell@webhookstudios.github.io/schemas
+glib-compile-schemas tide@webhookstudios.github.io/schemas
 ```
 
 A Wayland session cannot reload extension code, so each change needs a logout. To try changes without logging out, run the checks in a headless nested shell with a throwaway home folder. It connects to your real sound server, but plays its test sounds into two silent test devices that exist only while the checks run:

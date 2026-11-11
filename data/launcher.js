@@ -1,5 +1,5 @@
 #!/usr/bin/gjs -m
-// What the "Tide" entry in the apps menu runs. Swell itself is a GNOME
+// What the "Tide" entry in the apps menu runs. Tide itself is a GNOME
 // Shell extension with no window of its own, so this turns the extension on
 // if needed and opens its preferences. Right after installing, the running
 // shell does not know the extension yet; then it says so instead.
@@ -11,8 +11,8 @@ import Gdk from 'gi://Gdk?version=4.0';
 import GLib from 'gi://GLib';
 import Gtk from 'gi://Gtk?version=4.0';
 
-const UUID = 'swell@webhookstudios.github.io';
-const APP_ID = 'io.github.webhookstudios.Swell';
+const UUID = 'tide@webhookstudios.github.io';
+const APP_ID = 'io.github.webhookstudios.Tide';
 
 function run(...argv) {
     try {
@@ -25,7 +25,7 @@ function run(...argv) {
     }
 }
 
-// Adds Swell to the shell's list of enabled extensions. Unlike
+// Adds Tide to the shell's list of enabled extensions. Unlike
 // `gnome-extensions enable`, this also works before the shell has seen the
 // extension, so it comes on by itself at the next login.
 function markEnabled() {

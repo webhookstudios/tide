@@ -10,7 +10,7 @@
 # while the checks run, so nothing is heard.
 set -u
 
-UUID=swell@webhookstudios.github.io
+UUID=tide@webhookstudios.github.io
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 WORK="${WORK:-$(mktemp -d)}"
 export HOME="$WORK/home"

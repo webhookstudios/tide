@@ -2,7 +2,7 @@
 Type=Application
 Name=Tide
 GenericName=Volume Mixer Settings
-Comment=Change how the Swell volume mixer looks and what it remembers
+Comment=Change how the Tide volume mixer looks and what it remembers
 Exec=@EXEC@
 Icon=@ICON@
 Terminal=false

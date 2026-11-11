@@ -27,7 +27,7 @@ for o in d:
 # ---- silent test devices and test streams -----------------------------------
 SINKS=()
 for s in a b; do
-    pw-cli -m create-node adapter "{ factory.name=support.null-audio-sink node.name=swell-test-$s node.description=\"Test Speakers ${s^^}\" media.class=Audio/Sink audio.position=[FL FR] node.want-driver=true node.always-process=true }" >/dev/null &
+    pw-cli -m create-node adapter "{ factory.name=support.null-audio-sink node.name=tide-test-$s node.description=\"Test Speakers ${s^^}\" media.class=Audio/Sink audio.position=[FL FR] node.want-driver=true node.always-process=true }" >/dev/null &
     SINKS+=($!)
 done
 python3 - "$WORK/tone.wav" <<'PY'
@@ -39,8 +39,8 @@ w.close()
 PY
 sleep 1.5
 play() { pw-play --target "$2" -P "{ application.name=\"$1\" application.id=$3 }" "$WORK/tone.wav" >/dev/null 2>&1 & echo $!; }
-P1=$(play "Tone One" swell-test-a test.swell.one)
-P2=$(play "Tone Two" swell-test-a test.swell.two)
+P1=$(play "Tone One" tide-test-a test.tide.one)
+P2=$(play "Tone Two" tide-test-a test.tide.two)
 cleanup_audio() { kill $P1 $P2 ${SINKS[@]} 2>/dev/null; }
 trap cleanup_audio RETURN
 sleep 2
@@ -53,52 +53,52 @@ show "apps (key name running sinks)" "[...$MIX.apps.values()].map(a=>[a.key,a.na
 echo "##### open the mixer"
 eval_js "$BTN.menu.open()" >/dev/null; sleep 2
 show "rows" "[...$BTN._rows.values()].map(r=>r._name.text+' dev='+r._devLabel.text+' vol='+r._slider.value.toFixed(2)+' meter='+r.meter._shown.toFixed(2)).join('  ')"
-show "panel icon (expect swell-symbolic)" "$BTN._panelIcon.gicon.get_file().get_basename()"
+show "panel icon (expect tide-symbolic)" "$BTN._panelIcon.gicon.get_file().get_basename()"
 show "master" "$BTN._masterDevLabel.text+' '+$BTN._masterPercent.text+' meter='+$BTN._masterMeter._shown.toFixed(2)"
 show "meter helper running" "!!$BTN._meterProc"
 show "mic-in-use indicator shown (expect false)" "Main.panel.statusArea.quickSettings._volumeInput?._input?.visible ?? 'n/a'"
 shot mixer
 
 echo "##### per-app volume"
-N1=$(node_of test.swell.one)
-eval_js "(() => { const a=$MIX.apps.get('test.swell.one'); $MIX.setVolume(a, 0.5); return 1; })()" >/dev/null; sleep 1
+N1=$(node_of test.tide.one)
+eval_js "(() => { const a=$MIX.apps.get('test.tide.one'); $MIX.setVolume(a, 0.5); return 1; })()" >/dev/null; sleep 1
 echo "Tone One volume in PipeWire (wpctl shows the cubic scale: expect 0.50): $(wpctl get-volume $N1)"
-show "row percent" "$BTN._rows.get('test.swell.one')._percent.text"
-eval_js "(() => { const a=$MIX.apps.get('test.swell.one'); $MIX.setMuted(a, true); return 1; })()" >/dev/null; sleep 1
+show "row percent" "$BTN._rows.get('test.tide.one')._percent.text"
+eval_js "(() => { const a=$MIX.apps.get('test.tide.one'); $MIX.setMuted(a, true); return 1; })()" >/dev/null; sleep 1
 echo "after mute: $(wpctl get-volume $N1)"
-eval_js "(() => { const a=$MIX.apps.get('test.swell.one'); $MIX.setMuted(a, false); return 1; })()" >/dev/null; sleep 1
+eval_js "(() => { const a=$MIX.apps.get('test.tide.one'); $MIX.setMuted(a, false); return 1; })()" >/dev/null; sleep 1
 
 echo "##### per-app device"
-echo "Tone One plays on (expect swell-test-a): $(sink_of $N1)"
-eval_js "(() => { $BTN._rows.get('test.swell.one')._toggleDevices(); return 1; })()" >/dev/null; sleep 1
+echo "Tone One plays on (expect tide-test-a): $(sink_of $N1)"
+eval_js "(() => { $BTN._rows.get('test.tide.one')._toggleDevices(); return 1; })()" >/dev/null; sleep 1
 shot devices
-eval_js "(() => { const a=$MIX.apps.get('test.swell.one'); $MIX.moveApp(a, 'swell-test-b'); $BTN._rows.get('test.swell.one')._toggleDevices(); return 1; })()" >/dev/null; sleep 1.5
-echo "Tone One plays on (expect swell-test-b): $(sink_of $N1)"
-show "row device label" "$BTN._rows.get('test.swell.one')._devLabel.text"
-N2=$(node_of test.swell.two)
-echo "Tone Two still on (expect swell-test-a): $(sink_of $N2)"
+eval_js "(() => { const a=$MIX.apps.get('test.tide.one'); $MIX.moveApp(a, 'tide-test-b'); $BTN._rows.get('test.tide.one')._toggleDevices(); return 1; })()" >/dev/null; sleep 1.5
+echo "Tone One plays on (expect tide-test-b): $(sink_of $N1)"
+show "row device label" "$BTN._rows.get('test.tide.one')._devLabel.text"
+N2=$(node_of test.tide.two)
+echo "Tone Two still on (expect tide-test-a): $(sink_of $N2)"
 
 echo "##### memory: restart Tone One"
 sleep 1
 show "saved" "$BTN._settings.get_string('app-memory')"
 kill $P1; sleep 1.5
-show "inactive hidden by default (expect false)" "$BTN._rows.has('test.swell.one')"
-gsettings set org.gnome.shell.extensions.swell show-inactive true; sleep 1
-show "remembered app listed with inactive on (expect true)" "$BTN._rows.has('test.swell.one')"
+show "inactive hidden by default (expect false)" "$BTN._rows.has('test.tide.one')"
+gsettings set org.gnome.shell.extensions.tide show-inactive true; sleep 1
+show "remembered app listed with inactive on (expect true)" "$BTN._rows.has('test.tide.one')"
 shot inactive
-gsettings set org.gnome.shell.extensions.swell show-inactive false
-P1=$(play "Tone One" swell-test-a test.swell.one); sleep 2.5
-N1=$(node_of test.swell.one)
-echo "restarted Tone One plays on (expect swell-test-b): $(sink_of $N1)"
+gsettings set org.gnome.shell.extensions.tide show-inactive false
+P1=$(play "Tone One" tide-test-a test.tide.one); sleep 2.5
+N1=$(node_of test.tide.one)
+echo "restarted Tone One plays on (expect tide-test-b): $(sink_of $N1)"
 echo "restarted Tone One volume (expect 0.50): $(wpctl get-volume $N1)"
-eval_js "(() => { const a=$MIX.apps.get('test.swell.one'); $MIX.moveApp(a, null); return 1; })()" >/dev/null; sleep 1.5
-echo "back to default (expect swell-test-a, its own target): $(sink_of $N1)"
+eval_js "(() => { const a=$MIX.apps.get('test.tide.one'); $MIX.moveApp(a, null); return 1; })()" >/dev/null; sleep 1.5
+echo "back to default (expect tide-test-a, its own target): $(sink_of $N1)"
 
 echo "##### main device"
 ORIG=$(eval_js "$MIX.defaultSink.name" | sed -E 's/^\(true, .\"(.*)\".\)$/\1/')
 echo "original default: $ORIG"
-eval_js "(() => { $MIX.setDefaultSink($MIX.sinkByName('swell-test-b')); return 1; })()" >/dev/null; sleep 1
-show "default now (expect swell-test-b)" "$MIX.defaultSink.name + ' / ' + $BTN._masterDevLabel.text"
+eval_js "(() => { $MIX.setDefaultSink($MIX.sinkByName('tide-test-b')); return 1; })()" >/dev/null; sleep 1
+show "default now (expect tide-test-b)" "$MIX.defaultSink.name + ' / ' + $BTN._masterDevLabel.text"
 eval_js "$BTN._toggleMasterDevices()" >/dev/null; sleep 0.8; shot master-devices; eval_js "$BTN._toggleMasterDevices()" >/dev/null
 echo "##### scroll on the icon"
 eval_js "$BTN.menu.close()" >/dev/null; sleep 0.5
@@ -123,6 +123,6 @@ echo "##### disable / enable"
 eval_js "$BTN.menu.open()" >/dev/null; sleep 1.5
 gnome-extensions disable "$UUID"; sleep 2
 show "button gone (expect true)" "!Main.panel.statusArea['$UUID']"
-echo "helpers left running (expect none): $(pgrep -a -f 'pw-dump --monitor' | grep -v pgrep; pgrep -a -f swell@webhookstudios.github.io/meter.js)"
+echo "helpers left running (expect none): $(pgrep -a -f 'pw-dump --monitor' | grep -v pgrep; pgrep -a -f tide@webhookstudios.github.io/meter.js)"
 gnome-extensions enable "$UUID"; sleep 2
 show "back after enable" "Main.extensionManager.lookup('$UUID').state + ' ' + !!Main.panel.statusArea['$UUID']"

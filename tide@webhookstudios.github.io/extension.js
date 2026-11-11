@@ -39,14 +39,14 @@ const LevelMeter = GObject.registerClass(
 class LevelMeter extends St.Widget {
     _init() {
         super._init({
-            style_class: 'swell-meter',
+            style_class: 'tide-meter',
             layout_manager: new Clutter.BinLayout(),
             x_expand: true,
             y_expand: false,
             y_align: Clutter.ActorAlign.START,
         });
         this._fill = new St.Widget({
-            style_class: 'swell-meter-fill',
+            style_class: 'tide-meter-fill',
             x_expand: true,
             y_expand: true,
             pivot_point: new Graphene.Point({x: 0, y: 0.5}),
@@ -73,19 +73,19 @@ class LevelMeter extends St.Widget {
 // A list of output devices with a check next to the chosen one.
 // items: [{id, label, gicon, checked}]
 function deviceList(items, onPick) {
-    const box = new St.BoxLayout({style_class: 'swell-device-list', orientation: Clutter.Orientation.VERTICAL, x_expand: true});
+    const box = new St.BoxLayout({style_class: 'tide-device-list', orientation: Clutter.Orientation.VERTICAL, x_expand: true});
     for (const item of items) {
-        const row = new St.BoxLayout({style_class: 'swell-device-row-box', x_expand: true});
-        row.add_child(new St.Icon({gicon: item.gicon, style_class: 'swell-device-icon'}));
+        const row = new St.BoxLayout({style_class: 'tide-device-row-box', x_expand: true});
+        row.add_child(new St.Icon({gicon: item.gicon, style_class: 'tide-device-icon'}));
         row.add_child(new St.Label({text: item.label, x_expand: true, y_align: Clutter.ActorAlign.CENTER}));
         row.get_last_child().clutter_text.ellipsize = Pango.EllipsizeMode.END;
         row.add_child(new St.Icon({
             icon_name: 'object-select-symbolic',
-            style_class: 'swell-device-check',
+            style_class: 'tide-device-check',
             opacity: item.checked ? 255 : 0,
         }));
         const button = new St.Button({
-            style_class: 'swell-device-row',
+            style_class: 'tide-device-row',
             child: row,
             can_focus: true,
             x_expand: true,
@@ -103,17 +103,17 @@ function deviceList(items, onPick) {
 const AppRow = GObject.registerClass(
 class AppRow extends St.BoxLayout {
     _init(mixer, settings, app) {
-        super._init({style_class: 'swell-app', orientation: Clutter.Orientation.VERTICAL, x_expand: true});
+        super._init({style_class: 'tide-app', orientation: Clutter.Orientation.VERTICAL, x_expand: true});
         this._mixer = mixer;
         this._settings = settings;
 
-        const line = new St.BoxLayout({style_class: 'swell-app-line', x_expand: true});
+        const line = new St.BoxLayout({style_class: 'tide-app-line', x_expand: true});
         this.add_child(line);
 
-        this._icon = new St.Icon({style_class: 'swell-app-icon', icon_size: 32, fallback_icon_name: 'audio-x-generic-symbolic'});
+        this._icon = new St.Icon({style_class: 'tide-app-icon', icon_size: 32, fallback_icon_name: 'audio-x-generic-symbolic'});
         this._muteBadge = new St.Icon({
             icon_name: 'audio-volume-muted-symbolic',
-            style_class: 'swell-mute-badge',
+            style_class: 'tide-mute-badge',
             x_align: Clutter.ActorAlign.END,
             y_align: Clutter.ActorAlign.END,
             x_expand: true,
@@ -123,7 +123,7 @@ class AppRow extends St.BoxLayout {
         iconStack.add_child(this._icon);
         iconStack.add_child(this._muteBadge);
         this._muteButton = new St.Button({
-            style_class: 'swell-app-mute',
+            style_class: 'tide-app-mute',
             child: iconStack,
             can_focus: true,
             y_align: Clutter.ActorAlign.CENTER,
@@ -132,22 +132,22 @@ class AppRow extends St.BoxLayout {
             this._mixer.setMuted(this.app, !this._mixer.mutedOf(this.app)));
         line.add_child(this._muteButton);
 
-        const middle = new St.BoxLayout({orientation: Clutter.Orientation.VERTICAL, x_expand: true, style_class: 'swell-app-middle'});
+        const middle = new St.BoxLayout({orientation: Clutter.Orientation.VERTICAL, x_expand: true, style_class: 'tide-app-middle'});
         line.add_child(middle);
 
         const head = new St.BoxLayout({x_expand: true});
         middle.add_child(head);
-        this._name = new St.Label({style_class: 'swell-app-name', x_expand: true, y_align: Clutter.ActorAlign.CENTER});
+        this._name = new St.Label({style_class: 'tide-app-name', x_expand: true, y_align: Clutter.ActorAlign.CENTER});
         this._name.clutter_text.ellipsize = Pango.EllipsizeMode.END;
         head.add_child(this._name);
 
-        const devBox = new St.BoxLayout({style_class: 'swell-app-device-box'});
+        const devBox = new St.BoxLayout({style_class: 'tide-app-device-box'});
         this._devLabel = new St.Label({y_align: Clutter.ActorAlign.CENTER});
         this._devLabel.clutter_text.ellipsize = Pango.EllipsizeMode.END;
         devBox.add_child(this._devLabel);
-        devBox.add_child(new St.Icon({icon_name: 'pan-down-symbolic', style_class: 'swell-app-device-arrow'}));
+        devBox.add_child(new St.Icon({icon_name: 'pan-down-symbolic', style_class: 'tide-app-device-arrow'}));
         this._devButton = new St.Button({
-            style_class: 'swell-app-device',
+            style_class: 'tide-app-device',
             child: devBox,
             can_focus: true,
             x_align: Clutter.ActorAlign.END,
@@ -156,7 +156,7 @@ class AppRow extends St.BoxLayout {
         head.add_child(this._devButton);
 
         this._slider = new Slider(0);
-        this._slider.add_style_class_name('swell-slider');
+        this._slider.add_style_class_name('tide-slider');
         this._slider.x_expand = true;
         this._sliderId = this._slider.connect('notify::value', () => this._onSlider());
         this._slider.connect('drag-begin', () => (this._dragging = true));
@@ -166,7 +166,7 @@ class AppRow extends St.BoxLayout {
         this.meter = new LevelMeter();
         middle.add_child(this.meter);
 
-        this._percent = new St.Label({style_class: 'swell-percent', y_align: Clutter.ActorAlign.CENTER});
+        this._percent = new St.Label({style_class: 'tide-percent', y_align: Clutter.ActorAlign.CENTER});
         line.add_child(this._percent);
 
         this._devices = null;
@@ -281,8 +281,8 @@ class AppRow extends St.BoxLayout {
     }
 });
 
-const SwellButton = GObject.registerClass(
-class SwellButton extends PanelMenu.Button {
+const TideButton = GObject.registerClass(
+class TideButton extends PanelMenu.Button {
     _init(ext) {
         super._init(0.5, 'Tide', false);
         this._ext = ext;
@@ -290,12 +290,12 @@ class SwellButton extends PanelMenu.Button {
         this._mixer = new Mixer(this._settings);
         this._rows = new Map();
 
-        // Swell's own mixer symbol, so it is not mistaken for the system
+        // Tide's own mixer symbol, so it is not mistaken for the system
         // menu's speaker icon right next to it.
         const iconFile = name => Gio.FileIcon.new(Gio.File.new_for_path(
             GLib.build_filenamev([ext.path, 'icons', `${name}.svg`])));
-        this._iconOn = iconFile('swell-symbolic');
-        this._iconMuted = iconFile('swell-muted-symbolic');
+        this._iconOn = iconFile('tide-symbolic');
+        this._iconMuted = iconFile('tide-muted-symbolic');
         this._panelIcon = new St.Icon({gicon: this._iconOn, style_class: 'system-status-icon'});
         this.add_child(this._panelIcon);
         this.connect('scroll-event', (_a, event) => this._onScroll(event));
@@ -330,34 +330,34 @@ class SwellButton extends PanelMenu.Button {
     }
 
     _buildMenu() {
-        this.menu.box.add_style_class_name('swell-menu');
-        const item = new PopupMenu.PopupBaseMenuItem({reactive: false, can_focus: false, style_class: 'swell-item'});
+        this.menu.box.add_style_class_name('tide-menu');
+        const item = new PopupMenu.PopupBaseMenuItem({reactive: false, can_focus: false, style_class: 'tide-item'});
         this.menu.addMenuItem(item);
 
-        const root = new St.BoxLayout({style_class: 'swell-root', orientation: Clutter.Orientation.VERTICAL, x_expand: true});
+        const root = new St.BoxLayout({style_class: 'tide-root', orientation: Clutter.Orientation.VERTICAL, x_expand: true});
         item.add_child(root);
 
         // Main output: device and volume.
-        const masterHead = new St.BoxLayout({style_class: 'swell-master-head', x_expand: true});
+        const masterHead = new St.BoxLayout({style_class: 'tide-master-head', x_expand: true});
         root.add_child(masterHead);
-        this._masterDevIcon = new St.Icon({style_class: 'swell-master-device-icon'});
-        this._masterDevLabel = new St.Label({style_class: 'swell-master-device', x_expand: true, y_align: Clutter.ActorAlign.CENTER});
+        this._masterDevIcon = new St.Icon({style_class: 'tide-master-device-icon'});
+        this._masterDevLabel = new St.Label({style_class: 'tide-master-device', x_expand: true, y_align: Clutter.ActorAlign.CENTER});
         this._masterDevLabel.clutter_text.ellipsize = Pango.EllipsizeMode.END;
         const devBox = new St.BoxLayout({x_expand: true});
         devBox.add_child(this._masterDevIcon);
         devBox.add_child(this._masterDevLabel);
-        devBox.add_child(new St.Icon({icon_name: 'pan-down-symbolic', style_class: 'swell-app-device-arrow'}));
-        this._masterDevButton = new St.Button({style_class: 'swell-master-device-button', child: devBox, x_expand: true, can_focus: true});
+        devBox.add_child(new St.Icon({icon_name: 'pan-down-symbolic', style_class: 'tide-app-device-arrow'}));
+        this._masterDevButton = new St.Button({style_class: 'tide-master-device-button', child: devBox, x_expand: true, can_focus: true});
         this._masterDevButton.connect('clicked', () => this._toggleMasterDevices());
         masterHead.add_child(this._masterDevButton);
 
         this._masterDevices = new St.BoxLayout({orientation: Clutter.Orientation.VERTICAL, x_expand: true});
         root.add_child(this._masterDevices);
 
-        const masterLine = new St.BoxLayout({style_class: 'swell-app-line swell-master-line', x_expand: true});
+        const masterLine = new St.BoxLayout({style_class: 'tide-app-line tide-master-line', x_expand: true});
         root.add_child(masterLine);
-        this._masterMuteIcon = new St.Icon({style_class: 'swell-master-icon', icon_size: 24});
-        this._masterMute = new St.Button({style_class: 'swell-app-mute', child: this._masterMuteIcon, can_focus: true,
+        this._masterMuteIcon = new St.Icon({style_class: 'tide-master-icon', icon_size: 24});
+        this._masterMute = new St.Button({style_class: 'tide-app-mute', child: this._masterMuteIcon, can_focus: true,
             accessible_name: _('Mute main output'), y_align: Clutter.ActorAlign.CENTER});
         this._masterMute.connect('clicked', () => {
             const sink = this._mixer.defaultSink;
@@ -365,7 +365,7 @@ class SwellButton extends PanelMenu.Button {
                 sink.change_is_muted(!sink.is_muted);
         });
         masterLine.add_child(this._masterMute);
-        const masterMiddle = new St.BoxLayout({orientation: Clutter.Orientation.VERTICAL, x_expand: true, style_class: 'swell-app-middle'});
+        const masterMiddle = new St.BoxLayout({orientation: Clutter.Orientation.VERTICAL, x_expand: true, style_class: 'tide-app-middle'});
         masterLine.add_child(masterMiddle);
         this._masterSlider = new Slider(0);
         this._masterSlider.x_expand = true;
@@ -374,22 +374,22 @@ class SwellButton extends PanelMenu.Button {
         masterMiddle.add_child(this._masterSlider);
         this._masterMeter = new LevelMeter();
         masterMiddle.add_child(this._masterMeter);
-        this._masterPercent = new St.Label({style_class: 'swell-percent', y_align: Clutter.ActorAlign.CENTER});
+        this._masterPercent = new St.Label({style_class: 'tide-percent', y_align: Clutter.ActorAlign.CENTER});
         masterLine.add_child(this._masterPercent);
 
         // Apps.
-        root.add_child(new St.Label({text: _('Apps'), style_class: 'swell-heading'}));
+        root.add_child(new St.Label({text: _('Apps'), style_class: 'tide-heading'}));
         this._scroll = new St.ScrollView({
-            style_class: 'swell-scroll',
+            style_class: 'tide-scroll',
             hscrollbar_policy: St.PolicyType.NEVER,
             vscrollbar_policy: St.PolicyType.AUTOMATIC,
             overlay_scrollbars: true,
             x_expand: true,
         });
-        this._list = new St.BoxLayout({orientation: Clutter.Orientation.VERTICAL, style_class: 'swell-list', x_expand: true});
+        this._list = new St.BoxLayout({orientation: Clutter.Orientation.VERTICAL, style_class: 'tide-list', x_expand: true});
         this._scroll.set_child(this._list);
         root.add_child(this._scroll);
-        this._empty = new St.Label({text: _('No apps are playing sound'), style_class: 'swell-empty', x_align: Clutter.ActorAlign.CENTER});
+        this._empty = new St.Label({text: _('No apps are playing sound'), style_class: 'tide-empty', x_align: Clutter.ActorAlign.CENTER});
         root.add_child(this._empty);
 
         this.menu.addMenuItem(new PopupMenu.PopupSeparatorMenuItem());
@@ -575,7 +575,7 @@ class SwellButton extends PanelMenu.Button {
             proc = Gio.Subprocess.new(['gjs', '-m', path],
                 Gio.SubprocessFlags.STDIN_PIPE | Gio.SubprocessFlags.STDOUT_PIPE | Gio.SubprocessFlags.STDERR_SILENCE);
         } catch (e) {
-            console.warn(`Swell: level meters unavailable: ${e.message}`);
+            console.warn(`Tide: level meters unavailable: ${e.message}`);
             this._metersBroken = true;
             return;
         }
@@ -589,7 +589,7 @@ class SwellButton extends PanelMenu.Button {
             // Quitting right away means GStreamer or its PipeWire plugin is missing.
             if (this._meterProc === proc && !proc.get_successful() &&
                 GLib.get_monotonic_time() - started < 3 * GLib.USEC_PER_SEC) {
-                console.warn('Swell: the level meter helper stopped; meters are off');
+                console.warn('Tide: the level meter helper stopped; meters are off');
                 this._metersBroken = true;
             }
             if (this._meterProc === proc)
@@ -686,7 +686,7 @@ class SwellButton extends PanelMenu.Button {
     }
 });
 
-export default class SwellExtension extends Extension {
+export default class TideExtension extends Extension {
     enable() {
         this._settings = this.getSettings();
         this._settings.connectObject('changed::panel-position', () => {
@@ -697,7 +697,7 @@ export default class SwellExtension extends Extension {
     }
 
     _addButton() {
-        this._button = new SwellButton(this);
+        this._button = new TideButton(this);
         const right = Main.panel._rightBox;
         // The system menu (quickSettings) is the last item on the right.
         const qs = Main.panel.statusArea.quickSettings?.container;
