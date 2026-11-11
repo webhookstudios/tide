@@ -1,6 +1,6 @@
 # Tide
 
-*Formerly Swell. Part of the Sedge family of webhookstudios apps.*
+*Part of the Sedge family of webhookstudios apps.*
 
 A per-app volume mixer for GNOME. Every app playing sound gets its own volume slider, mute button, live level meter and output device, right from the top bar. Tide remembers each app's device and volume for next time.
 
@@ -27,10 +27,10 @@ Tide has only been tested on Ubuntu 26.04 with GNOME Shell 50.1 on Wayland.
 
 ### With the deb package (recommended)
 
-Download `tide_1.1.0_all.deb` from the [latest release](https://github.com/webhookstudios/tide/releases/latest), then install it:
+Download `tide_1.1.1_all.deb` from the [latest release](https://github.com/webhookstudios/tide/releases/latest), then install it:
 
 ```bash
-sudo apt install ./tide_1.1.0_all.deb
+sudo apt install ./tide_1.1.1_all.deb
 ```
 
 Log out and back in, then open **Tide** from the apps menu. The first time, that turns Tide on and opens its settings.

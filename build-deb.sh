@@ -44,7 +44,7 @@ install -m 644 "$ROOT/data/io.github.webhookstudios.Tide.take-over.desktop" "$ST
 
 cat > "$STAGE/usr/share/doc/tide/copyright" <<EOF
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: Tide (formerly Swell)
+Upstream-Name: Tide
 Source: https://github.com/webhookstudios/tide
 
 Files: *
@@ -75,7 +75,7 @@ Section: gnome
 Priority: optional
 Homepage: https://github.com/webhookstudios/tide
 Description: Per-app volume mixer for the GNOME top bar
- Tide (formerly Swell) is a GNOME Shell extension that adds a volume mixer to the top bar.
+ Tide is a GNOME Shell extension that adds a volume mixer to the top bar.
  It lists every app playing sound with its own volume slider, mute button,
  level meter and output device, remembers each app's device and volume,
  and lets you pick the main output device.
